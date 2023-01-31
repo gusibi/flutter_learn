@@ -13,7 +13,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.cyan,
+        useMaterial3: true,
+        // primarySwatch: Colors.green,
+        colorSchemeSeed: Colors.green,
       ),
       home: const RootPage(),
     );
@@ -39,6 +41,7 @@ class _RootPageState extends State<RootPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Moli App"),
+        backgroundColor: const Color(0xffB6F2AF),
       ),
       body: pages[currentPage],
       floatingActionButton: FloatingActionButton(
