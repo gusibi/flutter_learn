@@ -16,6 +16,7 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
       appBar: AppBar(
           title: const Text("learn Flutter"),
           automaticallyImplyLeading: false,
+          backgroundColor: const Color(0xffB6F2AF),
           leading: IconButton(
             onPressed: () {
               Navigator.of(context).pop();
@@ -55,8 +56,14 @@ class _LearnFlutterPageState extends State<LearnFlutterPage> {
               ),
             ),
             ElevatedButton(
+              onPressed: () {
+                debugPrint("E Learn Flutter");
+              },
+              child: const Text("Learn Flutter"),
+            ),
+            ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: isSwitch ? Colors.blue : Colors.redAccent,
+                backgroundColor: isSwitch ? Colors.blue : Colors.redAccent,
               ),
               onPressed: () {
                 debugPrint("E Button printed");

@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         // primarySwatch: Colors.green,
         colorSchemeSeed: Colors.green,
+        // scaffoldBackgroundColor: Colors.green,
       ),
       home: const RootPage(),
     );
