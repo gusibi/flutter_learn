@@ -9,6 +9,134 @@ String getFullName(String firstName, String lastName) {
 
 String getSimpleName(String name) => name;
 
+void valueType() {
+  final int age;
+  age = 20;
+  if (age > 20) {
+    print("age $age");
+  }
+  var names = {"foo", "bar"};
+  names.add("hello");
+  names.add("world");
+  print("name $names");
+
+  final things = {"foo", 1};
+  print("things $things");
+
+  var person = {"age": 20, "name": "Foo"};
+  person["sex"] = "male";
+  person["age"] = 21;
+  print("map person: $person");
+}
+
+void nullSafe() {
+  print("start null safe");
+  String? name = null;
+  print(name);
+  name = "Foo";
+  print(name);
+  int? age = 20;
+  print("age $age");
+  age = null;
+  print("age $age");
+  if (age == null) {
+    print("age is null");
+  }
+
+  List<String?> names = ["Foo", "Bar", null];
+  print("names $names");
+  // names = null; // A value of type  can't be assiged to a variable of List<String?>
+  List<String?>? namesNull = ["Foo", "Bar", null];
+  namesNull = null; // this is correct
+
+  const String? firstName = null;
+  const String? lastName = "name";
+
+  if (firstName != null) {
+  } else if (lastName != null) {}
+
+  const firstNonNullValue = firstName ?? lastName;
+  print("the first non null value is $firstNonNullValue");
+}
+
+enum PersonProperties { firstName, lastName, age }
+
+enum AnimalType { cat, dog, bunny }
+
+void testEnum(AnimalType animalType) {
+  print(PersonProperties.firstName);
+  switch (animalType) {
+    case AnimalType.bunny:
+      print("I dont konw bunny");
+      return;
+    case AnimalType.cat:
+      print("I like cat");
+      return;
+    case AnimalType.dog:
+      print("I have a dog");
+      return;
+    default:
+      print("null");
+      return;
+  }
+}
+
+abstract class LivingThing {
+  void breath() {
+    print("living this is breathing");
+  }
+
+  void move() {
+    print("I am moving");
+  }
+}
+
+class Person extends LivingThing {
+  String name;
+  int age;
+  final String gender;
+
+  Person(this.name, this.age, this.gender);
+
+  void printName() {
+    print(this.name);
+  }
+  // Person(this.name, this.age);
+}
+
+class Cat {
+  final String name;
+  Cat(this.name);
+
+  @override
+  bool operator ==(covariant Cat other) => other.name == name;
+
+  @override
+  int get hashCode => name.hashCode;
+
+  Cat operator +(Cat other) {
+    return Cat(name + other.name);
+  }
+}
+
+void testClass() {
+  final p = Person("gs", 33, "fale");
+  p.printName();
+  p.breath();
+
+  final cat1 = Cat("tom");
+  var cat2 = Cat("tom");
+
+  if (cat1 == cat2) {
+    print("They are equal");
+  } else {
+    print("they are not equal");
+  }
+  var cat3 = Cat("jerry");
+  var cat4 = cat2 + cat3;
+  print(cat4.name);
+}
+
 void main() {
   runApp(const MyApp());
 }
@@ -19,7 +147,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print(getFullName("Foo", "Bar"));
+    // valueType();
+    testClass();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
