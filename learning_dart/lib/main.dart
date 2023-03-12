@@ -104,7 +104,13 @@ class Person extends LivingThing {
   // Person(this.name, this.age);
 }
 
-class Cat {
+extension PersonInfo on Person {
+  String personInfo() {
+    return "name: $name, age: $age, gender: $gender";
+  }
+}
+
+class Cat extends Object {
   final String name;
   Cat(this.name);
 
@@ -116,6 +122,13 @@ class Cat {
 
   Cat operator +(Cat other) {
     return Cat(name + other.name);
+  }
+}
+
+extension Run on Cat {
+  String run() {
+    print("cat $name running");
+    return "run";
   }
 }
 
@@ -135,6 +148,81 @@ void testClass() {
   var cat3 = Cat("jerry");
   var cat4 = cat2 + cat3;
   print(cat4.name);
+  cat1.run();
+}
+
+Future<int> testFutureReturnValue(int a) {
+  return Future.delayed(const Duration(seconds: 2), () => a);
+}
+
+void test() async {
+  final returnFuture = testFutureReturnValue(1);
+  print(returnFuture);
+
+  final returnValue = await testFutureReturnValue(2);
+  print("return value: $returnValue");
+}
+
+Stream<String> getName() {
+  return Stream.value("hello");
+}
+
+// Stream<String> getNameEverySecond() {
+//   var i = 0;
+//   return Stream.periodic(const Duration(seconds: 1), (value) {
+//     i++;
+//     return "Foo $i";
+//   });
+// }
+
+// void testStream() async {
+//   await for (final value in getName()) {
+//     print("stream value $value");
+//   }
+//   print("stream finished working");
+//   await for (final name in getNameEverySecond()) {
+//     if (name == "Foo 10") {
+//       break;
+//     }
+//     print("get name every second: $name");
+//   }
+// }
+
+Iterable<int> getNumber() sync* {
+  for (var i = 0; i < 10; i++) {
+    yield i;
+  }
+}
+
+void testYield() {
+  for (final value in getNumber()) {
+    print("yield number: $value");
+  }
+}
+
+class PairOfString {
+  final String value1;
+  final String value2;
+
+  PairOfString(this.value1, this.value2);
+}
+
+class PairOfIntegers {
+  final int value1;
+  final int value2;
+
+  PairOfIntegers(this.value1, this.value2);
+}
+
+class Pair<A, B> {
+  final A value1;
+  final B value2;
+
+  Pair(this.value1, this.value2);
+}
+
+void testGenerics() {
+  final names = Pair("foo", 200);
 }
 
 void main() {
@@ -149,6 +237,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // valueType();
     testClass();
+    test();
+    testYield();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
